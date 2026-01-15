@@ -1,0 +1,115 @@
+{
+  "id": "researcher",
+  "name": "Researcher Agent",
+  "version": "1.0.0",
+  "type": "specialist",
+  "role": "knowledge-gathering",
+  "description": "Gathers and synthesizes information from multiple sources to support decision-making and implementation",
+
+  "capabilities": [
+    {
+      "id": "search-knowledge",
+      "name": "Knowledge Search",
+      "description": "Query the knowledge base for relevant information",
+      "signals": ["[SEARCH: query]", "[FOUND: count results]", "[KB_RESULT: source, summary]"]
+    },
+    {
+      "id": "scrape-source",
+      "name": "Source Scraping",
+      "description": "Extract information from web pages and documents",
+      "signals": ["[SCRAPE: url]", "[EXTRACTED: type, content]", "[SCRAPE_COMPLETE]"]
+    },
+    {
+      "id": "synthesize-findings",
+      "name": "Finding Synthesis",
+      "description": "Combine information from multiple sources into coherent insights",
+      "signals": ["[SYNTHESIS_START]", "[INSIGHT: topic, finding]", "[SYNTHESIS_COMPLETE]"]
+    },
+    {
+      "id": "generate-summary",
+      "name": "Summary Generation",
+      "description": "Create actionable summaries from research findings",
+      "signals": ["[SUMMARY: topic]", "[RECOMMENDATION: action]", "[RESEARCH_COMPLETE]"]
+    },
+    {
+      "id": "fact-check",
+      "name": "Fact Checking",
+      "description": "Verify information across multiple sources",
+      "signals": ["[VERIFY: claim]", "[VERIFIED: confidence]", "[CONTRADICTED: sources]"]
+    }
+  ],
+
+  "inputContext": {
+    "required": ["researchQuery", "scope"],
+    "optional": ["knownSources", "constraints", "timeLimit", "depth"]
+  },
+
+  "outputFormat": {
+    "type": "structured",
+    "schema": {
+      "findings": "array of finding objects with sources",
+      "synthesis": "combined insights narrative",
+      "recommendations": "actionable next steps",
+      "sources": "bibliography of consulted sources",
+      "confidence": "overall confidence level"
+    }
+  },
+
+  "decisionPoints": [
+    {
+      "id": "search-strategy",
+      "type": "approach",
+      "description": "How to approach the research",
+      "options": ["broad-then-narrow", "targeted", "exhaustive", "quick-scan"]
+    },
+    {
+      "id": "source-priority",
+      "type": "approach",
+      "description": "Which sources to prioritize",
+      "options": ["internal-first", "external-first", "authoritative-first", "recent-first"]
+    },
+    {
+      "id": "conflict-resolution",
+      "type": "action",
+      "description": "How to handle conflicting information",
+      "options": ["prefer-authoritative", "prefer-recent", "note-both", "seek-tiebreaker"]
+    }
+  ],
+
+  "sources": {
+    "internal": [
+      "knowledge-base",
+      "documentation",
+      "code-comments",
+      "commit-history",
+      "slack-archives"
+    ],
+    "external": [
+      "official-docs",
+      "stack-overflow",
+      "github-issues",
+      "blog-posts",
+      "api-references"
+    ]
+  },
+
+  "hooks": {
+    "onConflictingInfo": "Flag conflict and seek additional sources",
+    "onLowConfidence": "Expand search or escalate uncertainty",
+    "onHighRelevance": "Deep dive into promising source",
+    "onStaleInfo": "Check for updates, note date limitations"
+  },
+
+  "preferences": {
+    "defaultStrategy": "broad-then-narrow",
+    "maxSourcesPerQuery": 10,
+    "minConfidenceThreshold": 0.7,
+    "preferRecentOver": "6 months",
+    "cacheResults": true
+  },
+
+  "rules": {
+    "file": "prompts.md",
+    "activation": "always"
+  }
+}

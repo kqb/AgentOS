@@ -1,0 +1,71 @@
+# AgentOS Codeium/Windsurf Indexing Exclusions
+# Optimize context by excluding non-essential files
+
+# Node modules and dependencies
+node_modules/
+**/node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.bundle.js
+
+# Cache and temporary files
+.cache/
+.tmp/
+*.log
+*.tmp
+
+# Version control
+.git/
+.svn/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment files (security)
+.env
+.env.*
+*.pem
+*.key
+
+# Large binary files
+*.zip
+*.tar.gz
+*.png
+*.jpg
+*.gif
+*.ico
+
+# Test coverage
+coverage/
+.nyc_output/
+htmlcov/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+.eggs/
+
+# Documentation builds
+docs/_build/
+site/
+
+# Exclude memory-bank knowledge files from indexing
+# (referenced directly, not searched)
+memory-bank/knowledge/*.json
+
+# Keep these INCLUDED for proper indexing:
+# - .windsurf/rules/ (context rules)
+# - docs/*.md (architecture docs)
+# - memory-bank/context/ (task context)
+# - src/ (source code)

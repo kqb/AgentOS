@@ -1,0 +1,90 @@
+{
+  "name": "api-scaffold",
+  "version": "1.0.0",
+  "description": "Scaffold API endpoints with routes, controllers, and validation",
+  "category": "development",
+  "inputs": [
+    {
+      "name": "resource",
+      "type": "string",
+      "required": true,
+      "description": "Resource name (e.g., 'user', 'product')"
+    },
+    {
+      "name": "operations",
+      "type": "string[]",
+      "required": false,
+      "description": "CRUD operations to scaffold",
+      "default": ["create", "read", "update", "delete", "list"]
+    },
+    {
+      "name": "framework",
+      "type": "string",
+      "required": false,
+      "description": "API framework to use",
+      "default": "express",
+      "validation": {
+        "enum": ["express", "fastify", "koa", "hono"]
+      }
+    },
+    {
+      "name": "schema",
+      "type": "object",
+      "required": false,
+      "description": "Resource schema definition"
+    },
+    {
+      "name": "authentication",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to include authentication middleware",
+      "default": true
+    },
+    {
+      "name": "validation",
+      "type": "string",
+      "required": false,
+      "description": "Validation library to use",
+      "default": "zod",
+      "validation": {
+        "enum": ["zod", "joi", "yup", "none"]
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "files",
+      "type": "object[]",
+      "description": "Generated files with paths and content"
+    },
+    {
+      "name": "routes",
+      "type": "object[]",
+      "description": "Generated route definitions"
+    },
+    {
+      "name": "types",
+      "type": "string",
+      "description": "Generated TypeScript types"
+    }
+  ],
+  "prompts": {
+    "system": "You are scaffolding REST API endpoints. Generate clean, well-structured code following REST conventions. Include proper error handling, input validation, and TypeScript types. Use the specified framework and validation library.",
+    "completionSignal": "[TASK_COMPLETE:Scaffolded N endpoints]"
+  },
+  "requiredCapabilities": [
+    "code-generation",
+    "api-design"
+  ],
+  "estimatedDuration": 240000,
+  "retryPolicy": {
+    "maxRetries": 2,
+    "backoffMultiplier": 1.5
+  },
+  "tags": [
+    "api",
+    "scaffolding",
+    "rest",
+    "backend"
+  ]
+}

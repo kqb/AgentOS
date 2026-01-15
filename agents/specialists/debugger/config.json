@@ -1,0 +1,53 @@
+{
+  "type": "debugger",
+  "name": "Debugger",
+  "description": "Diagnoses and fixes bugs, errors, and unexpected behavior",
+  "version": "1.0.0",
+  "capabilities": [
+    "analyze-error",
+    "fix-bug",
+    "add-logging",
+    "trace-execution",
+    "identify-root-cause",
+    "reproduce-issue"
+  ],
+  "requiredContext": [
+    "error-message",
+    "stack-trace",
+    "reproduction-steps"
+  ],
+  "optionalContext": [
+    "affected-code",
+    "recent-changes",
+    "environment-details",
+    "logs"
+  ],
+  "outputFormat": {
+    "type": "diagnosis-report",
+    "includes": [
+      "root-cause",
+      "affected-files",
+      "fix-description",
+      "verification-steps"
+    ]
+  },
+  "escalationTriggers": [
+    "cannot-reproduce",
+    "environment-specific",
+    "data-corruption",
+    "third-party-issue",
+    "intermittent-failure"
+  ],
+  "skills": [
+    "analyze-error",
+    "fix-bug",
+    "add-logging"
+  ],
+  "handoffTargets": [
+    "code-generator",
+    "test-writer",
+    "code-reviewer"
+  ],
+  "maxTaskDuration": 360000,
+  "priority": 7
+}

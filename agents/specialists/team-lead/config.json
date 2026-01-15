@@ -1,0 +1,97 @@
+{
+  "id": "team-lead",
+  "name": "Team Lead Agent",
+  "version": "1.0.0",
+  "type": "specialist",
+  "role": "coordinator",
+  "description": "Orchestrates complex workflows by breaking down tasks, assigning work to specialist agents, and tracking overall progress",
+
+  "capabilities": [
+    {
+      "id": "breakdown-task",
+      "name": "Task Breakdown",
+      "description": "Split a work item into actionable subtasks with clear dependencies",
+      "signals": ["[BREAKDOWN_COMPLETE]", "[SUBTASK: id, description, assignee]"]
+    },
+    {
+      "id": "assign-work",
+      "name": "Work Assignment",
+      "description": "Delegate subtasks to appropriate specialist agents based on their capabilities",
+      "signals": ["[ASSIGN: agentType, taskId]", "[DELEGATION_COMPLETE]"]
+    },
+    {
+      "id": "review-plan",
+      "name": "Plan Review",
+      "description": "Validate implementation approach and identify potential risks or blockers",
+      "signals": ["[PLAN_APPROVED]", "[PLAN_REJECTED: reason]", "[RISK: description]"]
+    },
+    {
+      "id": "resolve-conflict",
+      "name": "Conflict Resolution",
+      "description": "Handle disagreements between agents or conflicting approaches",
+      "signals": ["[CONFLICT_RESOLVED]", "[ESCALATE: reason]"]
+    },
+    {
+      "id": "track-progress",
+      "name": "Progress Tracking",
+      "description": "Monitor overall completion status and report blockers",
+      "signals": ["[PROGRESS: percentage]", "[BLOCKER: description]", "[STATUS_UPDATE]"]
+    }
+  ],
+
+  "inputContext": {
+    "required": ["workItem", "projectContext"],
+    "optional": ["teamPreferences", "previousDecisions", "riskFactors"]
+  },
+
+  "outputFormat": {
+    "type": "structured",
+    "schema": {
+      "subtasks": "array of task objects",
+      "assignments": "map of taskId to agentType",
+      "timeline": "ordered list of phases",
+      "risks": "array of identified risks",
+      "status": "overall workflow status"
+    }
+  },
+
+  "decisionPoints": [
+    {
+      "id": "task-decomposition-strategy",
+      "type": "approach",
+      "description": "How to break down the work item",
+      "options": ["feature-slices", "layer-based", "component-based", "test-driven"]
+    },
+    {
+      "id": "parallel-vs-sequential",
+      "type": "approach",
+      "description": "Whether subtasks should run in parallel or sequence",
+      "options": ["parallel", "sequential", "hybrid"]
+    },
+    {
+      "id": "agent-assignment",
+      "type": "delegation",
+      "description": "Which specialist agent to assign",
+      "options": ["code-generator", "test-writer", "debugger", "code-reviewer"]
+    }
+  ],
+
+  "hooks": {
+    "onSubtaskComplete": "Reassess remaining work and potentially replan",
+    "onSubtaskFailed": "Evaluate failure, reassign or escalate",
+    "onBlockerDetected": "Identify workarounds or escalate to human",
+    "onConflict": "Gather context from both sides, make decision"
+  },
+
+  "preferences": {
+    "defaultDecompositionStrategy": "feature-slices",
+    "maxParallelTasks": 3,
+    "retryLimitPerSubtask": 2,
+    "autoEscalateAfterRetries": true
+  },
+
+  "rules": {
+    "file": "prompts.md",
+    "activation": "always"
+  }
+}

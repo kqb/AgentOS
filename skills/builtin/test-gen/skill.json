@@ -1,0 +1,91 @@
+{
+  "name": "test-gen",
+  "version": "1.0.0",
+  "description": "Generate comprehensive test suites for code",
+  "category": "testing",
+  "inputs": [
+    {
+      "name": "code",
+      "type": "string",
+      "required": true,
+      "description": "Code to generate tests for (file path or code block)"
+    },
+    {
+      "name": "testType",
+      "type": "string",
+      "required": false,
+      "description": "Type of tests to generate",
+      "default": "unit",
+      "validation": {
+        "enum": ["unit", "integration", "e2e"]
+      }
+    },
+    {
+      "name": "framework",
+      "type": "string",
+      "required": false,
+      "description": "Test framework to use",
+      "default": "vitest",
+      "validation": {
+        "enum": ["vitest", "jest", "mocha", "playwright"]
+      }
+    },
+    {
+      "name": "coverageTarget",
+      "type": "number",
+      "required": false,
+      "description": "Target code coverage percentage",
+      "default": 80,
+      "validation": {
+        "min": 0,
+        "max": 100
+      }
+    },
+    {
+      "name": "includeEdgeCases",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to include edge case tests",
+      "default": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "testCode",
+      "type": "string",
+      "description": "Generated test code"
+    },
+    {
+      "name": "testFile",
+      "type": "string",
+      "description": "Suggested test file path"
+    },
+    {
+      "name": "testCases",
+      "type": "object[]",
+      "description": "List of test cases with descriptions"
+    },
+    {
+      "name": "estimatedCoverage",
+      "type": "number",
+      "description": "Estimated coverage percentage"
+    }
+  ],
+  "prompts": {
+    "system": "You are generating comprehensive tests for code. Follow the AAA pattern (Arrange, Act, Assert). Include tests for happy path, error cases, edge cases, and boundary conditions. Use descriptive test names that explain what is being tested.",
+    "completionSignal": "[TASK_COMPLETE:Generated N test cases]"
+  },
+  "requiredCapabilities": [
+    "test-generation"
+  ],
+  "estimatedDuration": 180000,
+  "retryPolicy": {
+    "maxRetries": 2,
+    "backoffMultiplier": 1.5
+  },
+  "tags": [
+    "testing",
+    "test-generation",
+    "quality-assurance"
+  ]
+}

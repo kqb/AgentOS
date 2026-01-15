@@ -1,0 +1,118 @@
+{
+  "id": "swe-pool",
+  "name": "SWE Agent Pool",
+  "version": "1.0.0",
+  "type": "pool",
+  "description": "Pool of software engineering agents for parallel task execution",
+
+  "poolConfig": {
+    "minAgents": 1,
+    "maxAgents": 5,
+    "autoScale": true,
+    "scaleUpThreshold": 0.8,
+    "scaleDownThreshold": 0.3,
+    "cooldownPeriod": 60000,
+    "loadBalancing": "round-robin"
+  },
+
+  "agentTemplate": {
+    "type": "swe",
+    "baseCapabilities": [
+      "implement-feature",
+      "refactor",
+      "fix-bug",
+      "code-review",
+      "write-tests"
+    ]
+  },
+
+  "taskAssignment": {
+    "strategy": "capability-match",
+    "fallbackStrategy": "round-robin",
+    "maxConcurrentTasks": 1,
+    "maxQueuedTasks": 10
+  },
+
+  "healthCheck": {
+    "enabled": true,
+    "intervalMs": 30000,
+    "timeoutMs": 5000,
+    "unhealthyThreshold": 3,
+    "healthyThreshold": 2
+  },
+
+  "metrics": {
+    "collectTaskDuration": true,
+    "collectSuccessRate": true,
+    "collectQueueDepth": true,
+    "reportIntervalMs": 60000
+  },
+
+  "capabilities": [
+    {
+      "id": "implement-feature",
+      "name": "Feature Implementation",
+      "description": "Implement new features based on specifications",
+      "estimatedDuration": "medium",
+      "parallelizable": true
+    },
+    {
+      "id": "refactor",
+      "name": "Code Refactoring",
+      "description": "Improve code structure without changing behavior",
+      "estimatedDuration": "medium",
+      "parallelizable": true
+    },
+    {
+      "id": "fix-bug",
+      "name": "Bug Fixing",
+      "description": "Identify and fix software defects",
+      "estimatedDuration": "short",
+      "parallelizable": true
+    },
+    {
+      "id": "code-review",
+      "name": "Code Review",
+      "description": "Review code changes for quality and correctness",
+      "estimatedDuration": "short",
+      "parallelizable": true
+    },
+    {
+      "id": "write-tests",
+      "name": "Test Writing",
+      "description": "Write unit, integration, or E2E tests",
+      "estimatedDuration": "medium",
+      "parallelizable": true
+    }
+  ],
+
+  "signals": {
+    "poolScaleUp": "[POOL_SCALE_UP: current, target]",
+    "poolScaleDown": "[POOL_SCALE_DOWN: current, target]",
+    "taskAssigned": "[TASK_ASSIGNED: agentId, taskId]",
+    "taskCompleted": "[TASK_COMPLETED: agentId, taskId, duration]",
+    "agentHealthy": "[AGENT_HEALTHY: agentId]",
+    "agentUnhealthy": "[AGENT_UNHEALTHY: agentId, reason]"
+  },
+
+  "hooks": {
+    "onScaleUp": "Log scaling event, notify orchestrator",
+    "onScaleDown": "Gracefully drain agent tasks before removal",
+    "onTaskTimeout": "Reassign task to different agent",
+    "onAgentFailure": "Remove from pool, replace if needed",
+    "onQueueFull": "Reject new tasks or scale up"
+  },
+
+  "constraints": {
+    "maxTaskDuration": 3600000,
+    "maxRetries": 3,
+    "requireHealthyForAssignment": true,
+    "isolateFailedTasks": true
+  },
+
+  "preferences": {
+    "preferExperiencedAgents": true,
+    "balanceWorkload": true,
+    "minimizeContextSwitching": true
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "type": "doc-writer",
+  "name": "Documentation Writer",
+  "description": "Creates and maintains documentation for code, APIs, and systems",
+  "version": "1.0.0",
+  "capabilities": [
+    "write-readme",
+    "api-docs",
+    "jsdoc",
+    "user-guide",
+    "architecture-docs",
+    "changelog"
+  ],
+  "requiredContext": [
+    "target-code",
+    "audience",
+    "documentation-type"
+  ],
+  "optionalContext": [
+    "existing-docs",
+    "style-guide",
+    "examples"
+  ],
+  "outputFormat": {
+    "type": "documentation",
+    "includes": [
+      "doc-type",
+      "content",
+      "code-examples",
+      "cross-references"
+    ]
+  },
+  "escalationTriggers": [
+    "unclear-functionality",
+    "missing-context",
+    "deprecated-code",
+    "undocumented-behavior"
+  ],
+  "skills": [
+    "write-readme",
+    "api-docs",
+    "jsdoc"
+  ],
+  "handoffTargets": [
+    "code-reviewer"
+  ],
+  "maxTaskDuration": 180000,
+  "priority": 3
+}

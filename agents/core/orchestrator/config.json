@@ -1,0 +1,61 @@
+{
+  "type": "orchestrator",
+  "name": "Orchestrator",
+  "description": "Central coordination agent that manages workflow execution and agent collaboration",
+  "version": "1.0.0",
+  "capabilities": [
+    "task-breakdown",
+    "agent-delegation",
+    "workflow-management",
+    "state-coordination",
+    "conflict-resolution",
+    "progress-tracking"
+  ],
+  "requiredContext": [
+    "task-definition",
+    "available-agents",
+    "workflow-state"
+  ],
+  "optionalContext": [
+    "priority",
+    "deadline",
+    "constraints"
+  ],
+  "outputFormat": {
+    "type": "orchestration-plan",
+    "includes": [
+      "task-breakdown",
+      "agent-assignments",
+      "execution-order",
+      "dependencies"
+    ]
+  },
+  "escalationTriggers": [
+    "all-agents-blocked",
+    "circular-dependency",
+    "resource-conflict",
+    "deadline-risk",
+    "scope-change"
+  ],
+  "managedAgents": [
+    "code-generator",
+    "test-writer",
+    "code-reviewer",
+    "debugger",
+    "doc-writer",
+    "qa-engineer"
+  ],
+  "workflowStates": [
+    "INIT",
+    "ANALYZING",
+    "PLANNING",
+    "IMPLEMENTING",
+    "TESTING",
+    "REVIEWING",
+    "DEPLOYING",
+    "COMPLETED",
+    "ERROR"
+  ],
+  "maxConcurrentAgents": 3,
+  "priority": 10
+}

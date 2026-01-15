@@ -1,0 +1,53 @@
+{
+  "type": "code-generator",
+  "name": "Code Generator",
+  "description": "Generates implementation code based on requirements and specifications",
+  "version": "1.0.0",
+  "capabilities": [
+    "implement-feature",
+    "add-functionality",
+    "create-components",
+    "write-functions",
+    "add-types",
+    "refactor-code"
+  ],
+  "requiredContext": [
+    "requirements",
+    "target-files",
+    "coding-standards",
+    "existing-patterns"
+  ],
+  "optionalContext": [
+    "test-requirements",
+    "performance-constraints",
+    "accessibility-requirements"
+  ],
+  "outputFormat": {
+    "type": "code-changes",
+    "includes": [
+      "file-path",
+      "change-type",
+      "code-content",
+      "explanation"
+    ]
+  },
+  "escalationTriggers": [
+    "unclear-requirements",
+    "breaking-changes-needed",
+    "security-concerns",
+    "missing-dependencies",
+    "architectural-decisions"
+  ],
+  "skills": [
+    "implement-feature",
+    "refactor",
+    "add-types"
+  ],
+  "handoffTargets": [
+    "test-writer",
+    "code-reviewer",
+    "doc-writer"
+  ],
+  "maxTaskDuration": 300000,
+  "priority": 5
+}

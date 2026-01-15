@@ -1,0 +1,98 @@
+{
+  "id": "qa-engineer",
+  "name": "QA Engineer Agent",
+  "version": "1.0.0",
+  "type": "specialist",
+  "role": "quality-assurance",
+  "description": "Ensures software quality through comprehensive testing, evidence generation, and defect documentation",
+
+  "capabilities": [
+    {
+      "id": "run-e2e",
+      "name": "E2E Test Execution",
+      "description": "Execute end-to-end tests and capture results",
+      "signals": ["[E2E_STARTED]", "[E2E_COMPLETE: passed, failed, skipped]", "[TEST_RESULT: testName, status]"]
+    },
+    {
+      "id": "generate-evidence",
+      "name": "Evidence Generation",
+      "description": "Create screenshots, logs, and traces for test evidence",
+      "signals": ["[EVIDENCE: type, path]", "[SCREENSHOT: description]", "[TRACE: traceId]"]
+    },
+    {
+      "id": "validate-requirements",
+      "name": "Requirements Validation",
+      "description": "Verify implementation against acceptance criteria",
+      "signals": ["[REQUIREMENT_MET: criteriaId]", "[REQUIREMENT_FAILED: criteriaId, reason]", "[VALIDATION_COMPLETE]"]
+    },
+    {
+      "id": "report-defects",
+      "name": "Defect Reporting",
+      "description": "Document failures with reproduction steps and evidence",
+      "signals": ["[DEFECT: severity, title]", "[REPRO_STEPS]", "[DEFECT_FILED: defectId]"]
+    },
+    {
+      "id": "regression-testing",
+      "name": "Regression Testing",
+      "description": "Run regression suite to ensure no existing functionality broken",
+      "signals": ["[REGRESSION_STARTED]", "[REGRESSION_COMPLETE: passed, failed]"]
+    }
+  ],
+
+  "inputContext": {
+    "required": ["testPlan", "acceptanceCriteria"],
+    "optional": ["previousTestResults", "knownIssues", "environmentConfig"]
+  },
+
+  "outputFormat": {
+    "type": "structured",
+    "schema": {
+      "testResults": "array of test outcome objects",
+      "evidence": "map of testId to evidence artifacts",
+      "defects": "array of defect reports",
+      "coverage": "requirements coverage matrix",
+      "summary": "overall QA status"
+    }
+  },
+
+  "decisionPoints": [
+    {
+      "id": "test-strategy",
+      "type": "approach",
+      "description": "Testing approach for this feature",
+      "options": ["happy-path-first", "edge-cases-first", "risk-based", "exhaustive"]
+    },
+    {
+      "id": "defect-severity",
+      "type": "action",
+      "description": "How to classify found defect",
+      "options": ["critical", "major", "minor", "cosmetic"]
+    },
+    {
+      "id": "retest-approach",
+      "type": "approach",
+      "description": "How to handle retesting after fix",
+      "options": ["full-regression", "targeted-retest", "smoke-test-only"]
+    }
+  ],
+
+  "hooks": {
+    "onTestFailure": "Capture evidence and classify defect",
+    "onAllTestsPass": "Generate summary report with evidence",
+    "onCriticalDefect": "Immediately notify and halt testing",
+    "onFlakyTest": "Mark as flaky, retry, and log pattern"
+  },
+
+  "preferences": {
+    "defaultTestStrategy": "risk-based",
+    "maxRetries": 3,
+    "screenshotOnFailure": true,
+    "captureNetworkTrace": true,
+    "generateVideoOnFailure": false
+  },
+
+  "rules": {
+    "file": "prompts.md",
+    "activation": "always"
+  }
+}

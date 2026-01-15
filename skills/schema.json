@@ -1,0 +1,155 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "AgentOS Skill Definition",
+  "description": "Schema for defining skills that agents can execute",
+  "type": "object",
+  "required": ["name", "version", "description", "inputs", "outputs", "prompts"],
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Unique skill identifier",
+      "pattern": "^[a-z][a-z0-9-]*$"
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of what the skill does"
+    },
+    "category": {
+      "type": "string",
+      "description": "Skill category for organization",
+      "enum": ["development", "testing", "review", "debugging", "documentation", "deployment", "analysis"]
+    },
+    "inputs": {
+      "type": "array",
+      "description": "Input parameters for the skill",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Parameter name"
+          },
+          "type": {
+            "type": "string",
+            "description": "Parameter type",
+            "enum": ["string", "number", "boolean", "object", "string[]", "object[]"]
+          },
+          "required": {
+            "type": "boolean",
+            "description": "Whether the parameter is required",
+            "default": false
+          },
+          "description": {
+            "type": "string",
+            "description": "Parameter description"
+          },
+          "default": {
+            "description": "Default value if not provided"
+          },
+          "validation": {
+            "type": "object",
+            "description": "Validation rules",
+            "properties": {
+              "pattern": { "type": "string" },
+              "minLength": { "type": "number" },
+              "maxLength": { "type": "number" },
+              "min": { "type": "number" },
+              "max": { "type": "number" },
+              "enum": { "type": "array" }
+            }
+          }
+        }
+      }
+    },
+    "outputs": {
+      "type": "array",
+      "description": "Output values from the skill",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Output name"
+          },
+          "type": {
+            "type": "string",
+            "description": "Output type",
+            "enum": ["string", "number", "boolean", "object", "string[]", "object[]"]
+          },
+          "description": {
+            "type": "string",
+            "description": "Output description"
+          }
+        }
+      }
+    },
+    "prompts": {
+      "type": "object",
+      "description": "Prompt templates for the skill",
+      "required": ["system"],
+      "properties": {
+        "system": {
+          "type": "string",
+          "description": "System prompt that defines the skill behavior"
+        },
+        "completionSignal": {
+          "type": "string",
+          "description": "Signal to emit when skill completes",
+          "default": "[TASK_COMPLETE]"
+        },
+        "errorSignal": {
+          "type": "string",
+          "description": "Signal to emit on error",
+          "default": "[ERROR]"
+        }
+      }
+    },
+    "requiredCapabilities": {
+      "type": "array",
+      "description": "Agent capabilities required to execute this skill",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requiredIntegrations": {
+      "type": "array",
+      "description": "External integrations required",
+      "items": {
+        "type": "string",
+        "enum": ["jira", "github", "jenkins", "slack", "confluence"]
+      }
+    },
+    "estimatedDuration": {
+      "type": "number",
+      "description": "Estimated execution time in milliseconds"
+    },
+    "retryPolicy": {
+      "type": "object",
+      "description": "Retry behavior on failure",
+      "properties": {
+        "maxRetries": {
+          "type": "number",
+          "default": 3
+        },
+        "backoffMultiplier": {
+          "type": "number",
+          "default": 2
+        }
+      }
+    },
+    "tags": {
+      "type": "array",
+      "description": "Tags for skill discovery",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

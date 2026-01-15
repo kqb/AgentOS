@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": null,
+  "patterns": {
+    "orchestration": {
+      "map-reduce": {
+        "description": "Break task into parallel subtasks, aggregate results",
+        "use_when": "Independent subtasks that can run concurrently",
+        "agents_involved": ["orchestrator", "swe-pool"],
+        "example": "Implementing multiple unrelated features"
+      },
+      "pipeline": {
+        "description": "Sequential handoffs through specialist agents",
+        "use_when": "Each step depends on the previous",
+        "agents_involved": ["code-generator", "test-writer", "reviewer"],
+        "example": "Code -> Test -> Review workflow"
+      },
+      "evaluator-optimizer": {
+        "description": "Generate candidate, evaluate, refine iteratively",
+        "use_when": "Quality improvement through iteration",
+        "agents_involved": ["generator", "evaluator"],
+        "example": "Code optimization, prompt engineering"
+      }
+    },
+    "coding": {
+      "error_handling": {
+        "description": "Custom exceptions with context",
+        "template": "class DomainError(Exception): pass"
+      },
+      "async_pattern": {
+        "description": "Async/await for I/O operations",
+        "template": "async def fetch_data(): return await client.get()"
+      }
+    },
+    "testing": {
+      "fixture_pattern": {
+        "description": "Reusable test fixtures",
+        "template": "@pytest.fixture def authenticated_user(): ..."
+      },
+      "parametrize_pattern": {
+        "description": "Data-driven tests",
+        "template": "@pytest.mark.parametrize('input,expected', [...])"
+      }
+    }
+  },
+  "anti_patterns": {
+    "god_agent": {
+      "description": "Single agent handling too many concerns",
+      "solution": "Split into specialist agents with clear boundaries"
+    },
+    "context_loss": {
+      "description": "Important decisions not documented",
+      "solution": "Always use [CONTEXT_SAVE: key=value] for critical info"
+    }
+  }
+}

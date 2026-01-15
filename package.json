@@ -1,0 +1,47 @@
+{
+  "name": "agentos",
+  "version": "1.0.0",
+  "description": "Multi-Agent Orchestration System for Windsurf",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "bin": {
+    "agentos-inject": "./scripts/inject.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "bundle": "node scripts/build.js",
+    "inject": "node scripts/inject.js",
+    "inject:persistent": "node scripts/inject.js --persistent",
+    "dev": "tsc --watch",
+    "clean": "rm -rf dist",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "keywords": [
+    "agent",
+    "orchestration",
+    "windsurf",
+    "automation",
+    "workflow"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "ws": "^8.14.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/ws": "^8.5.10",
+    "esbuild": "^0.19.8",
+    "typescript": "^5.3.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "agents",
+    "skills"
+  ]
+}

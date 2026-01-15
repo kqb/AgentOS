@@ -1,0 +1,51 @@
+{
+  "type": "test-writer",
+  "name": "Test Writer",
+  "description": "Generates comprehensive test suites for code implementations",
+  "version": "1.0.0",
+  "capabilities": [
+    "unit-test",
+    "integration-test",
+    "e2e-test",
+    "test-coverage",
+    "mock-generation",
+    "fixture-creation"
+  ],
+  "requiredContext": [
+    "target-code",
+    "test-framework",
+    "coverage-requirements"
+  ],
+  "optionalContext": [
+    "existing-tests",
+    "test-patterns",
+    "mock-requirements"
+  ],
+  "outputFormat": {
+    "type": "test-files",
+    "includes": [
+      "test-file-path",
+      "test-cases",
+      "coverage-notes",
+      "setup-requirements"
+    ]
+  },
+  "escalationTriggers": [
+    "untestable-code",
+    "missing-mocks",
+    "flaky-test-patterns",
+    "coverage-gaps",
+    "external-dependencies"
+  ],
+  "skills": [
+    "unit-test",
+    "integration-test",
+    "e2e-test"
+  ],
+  "handoffTargets": [
+    "code-reviewer",
+    "qa-engineer"
+  ],
+  "maxTaskDuration": 240000,
+  "priority": 4
+}

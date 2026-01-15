@@ -1,0 +1,69 @@
+{
+  "name": "refactor",
+  "version": "1.0.0",
+  "description": "Refactor code to improve quality, readability, or performance while preserving behavior",
+  "category": "development",
+  "inputs": [
+    {
+      "name": "target",
+      "type": "string",
+      "required": true,
+      "description": "File path or code block to refactor"
+    },
+    {
+      "name": "goal",
+      "type": "string",
+      "required": true,
+      "description": "Refactoring objective (e.g., 'improve readability', 'reduce complexity', 'extract method')"
+    },
+    {
+      "name": "scope",
+      "type": "string",
+      "required": false,
+      "description": "Scope of refactoring: 'function', 'class', 'module', 'file'",
+      "default": "function"
+    },
+    {
+      "name": "preserveApi",
+      "type": "boolean",
+      "required": false,
+      "description": "Whether to preserve public API signatures",
+      "default": true
+    }
+  ],
+  "outputs": [
+    {
+      "name": "refactoredCode",
+      "type": "string",
+      "description": "The refactored code"
+    },
+    {
+      "name": "changes",
+      "type": "string[]",
+      "description": "List of changes made"
+    },
+    {
+      "name": "metrics",
+      "type": "object",
+      "description": "Before/after metrics (complexity, lines, etc.)"
+    }
+  ],
+  "prompts": {
+    "system": "You are refactoring code to improve its quality while preserving its behavior. Focus on the specified goal while maintaining code correctness. Always verify that the refactored code has the same external behavior as the original.",
+    "completionSignal": "[TASK_COMPLETE:Refactoring complete]"
+  },
+  "requiredCapabilities": [
+    "code-generation",
+    "code-analysis"
+  ],
+  "estimatedDuration": 180000,
+  "retryPolicy": {
+    "maxRetries": 2,
+    "backoffMultiplier": 1.5
+  },
+  "tags": [
+    "refactoring",
+    "code-quality",
+    "maintenance"
+  ]
+}

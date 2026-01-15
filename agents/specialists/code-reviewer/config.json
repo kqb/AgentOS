@@ -1,0 +1,52 @@
+{
+  "type": "code-reviewer",
+  "name": "Code Reviewer",
+  "description": "Reviews code for quality, security, and adherence to standards",
+  "version": "1.0.0",
+  "capabilities": [
+    "review-pr",
+    "security-scan",
+    "style-check",
+    "performance-review",
+    "best-practices",
+    "dependency-audit"
+  ],
+  "requiredContext": [
+    "code-changes",
+    "coding-standards",
+    "security-requirements"
+  ],
+  "optionalContext": [
+    "performance-requirements",
+    "historical-issues",
+    "team-conventions"
+  ],
+  "outputFormat": {
+    "type": "review-report",
+    "includes": [
+      "severity",
+      "category",
+      "file-location",
+      "issue-description",
+      "recommendation"
+    ]
+  },
+  "escalationTriggers": [
+    "critical-security-issue",
+    "breaking-api-change",
+    "performance-regression",
+    "unclear-intent",
+    "architectural-concern"
+  ],
+  "skills": [
+    "review-pr",
+    "security-scan"
+  ],
+  "handoffTargets": [
+    "code-generator",
+    "debugger",
+    "team-lead"
+  ],
+  "maxTaskDuration": 180000,
+  "priority": 6
+}
